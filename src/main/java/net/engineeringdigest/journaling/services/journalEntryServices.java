@@ -32,7 +32,7 @@ public class journalEntryServices {
             journalentry.setDate(LocalDateTime.now());
             JournalEntry saved = JournalRepository.save(journalentry);// this will save the journal entry
 
-            user.getJournalentries().add(saved);
+            user.getJournalEntries().add(saved);
 
             userEntryServices.saveEntry(user); // again you have to save this in userservices ,after saving journal in it
 
@@ -62,7 +62,7 @@ public class journalEntryServices {
 
     public void deletebyid(ObjectId id, String username){
         user deluser = userEntryServices.findbyusername(username);
-        deluser.getJournalentries().removeIf(x ->x.getId().equals(id));
+        deluser.getJournalEntries().removeIf(x ->x.getId().equals(id));
         userEntryServices.saveEntry(deluser);
         JournalRepository.deleteById(id);
     }

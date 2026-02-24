@@ -13,7 +13,9 @@ import java.time.LocalDateTime;
 //@AllArgsConstructor// it is the annotation which consist of all the getter and setters.
 //@Getter
 //@Setter
-public class JournalEntry {
+
+public  class JournalEntry{
+
     @Id
     private ObjectId id;
 
@@ -23,6 +25,17 @@ public class JournalEntry {
     private String content;
 
     private LocalDateTime date;
-
-
 }
+//public class JournalEntry {
+//    @Id
+//    private ObjectId id;
+//
+//    @NonNull
+//    private String title;
+//
+//    private String content;
+//
+//    private LocalDateTime date;
+//
+//
+//}

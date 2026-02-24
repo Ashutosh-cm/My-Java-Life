@@ -15,20 +15,38 @@ import java.util.List;
 @Data          // it is the annotation which consist of all the getter and setters.
 //@Getter
 //@Setter
-public class user {
+
+public class user{
     @Id
     private ObjectId id;
 
     @Indexed(unique = true)
     @NonNull
-    private String username;               // there must be unique username that is why indexed has been used
+    private String username;
 
     @NonNull
-    private String password;     // both have them should not be null
-
-    @DBRef(lazy = true)
-    private List<JournalEntry> journalentries=new ArrayList<>();
+    private String password;
 
 
-
+    @DBRef
+    private List<JournalEntry> JournalEntries =new ArrayList<>();
 }
+
+
+//public class user {
+//    @Id
+//    private ObjectId id;
+//
+//    @Indexed(unique = true)
+//    @NonNull
+//    private String username;               // there must be unique username that is why indexed has been used
+//
+//    @NonNull
+//    private String password;     // both have them should not be null
+//
+//    @DBRef(lazy = true)
+//    private List<JournalEntry> journalentries=new ArrayList<>();
+//
+//
+//
+//}
