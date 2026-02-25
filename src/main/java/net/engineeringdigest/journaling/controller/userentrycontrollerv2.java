@@ -2,6 +2,7 @@ package net.engineeringdigest.journaling.controller;
 
 import net.engineeringdigest.journaling.entity.user;
 import net.engineeringdigest.journaling.services.userEntryServices;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,13 @@ public class userentrycontrollerv2 {
         }
         return new ResponseEntity<>( HttpStatus.NOT_FOUND);
 
+
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean DeleteUser(@PathVariable ObjectId id){
+        userEntryServices.deletebyid(id);
+        return true;
 
     }
 

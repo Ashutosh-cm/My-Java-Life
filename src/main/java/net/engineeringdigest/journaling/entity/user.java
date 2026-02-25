@@ -28,7 +28,7 @@ public class user{
     private String password;
 
 
-    @DBRef
+    @DBRef(lazy = true)
     private List<JournalEntry> JournalEntries =new ArrayList<>();
 }
 

@@ -25,7 +25,7 @@ public class journalEntryServices {
 
 
 
-    @Transactional
+//    @Transactional
     public void  saveEntry(JournalEntry journalentry, String username){
         try{
             user user = userEntryServices.findbyusername(username);

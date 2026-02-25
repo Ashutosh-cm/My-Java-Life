@@ -1,7 +1,7 @@
 package net.engineeringdigest.journaling.services;
 
 import net.engineeringdigest.journaling.entity.user;
-import net.engineeringdigest.journaling.repository.userEntrypository;
+import net.engineeringdigest.journaling.repository.UserEntryrepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -16,28 +16,28 @@ public class userEntryServices {
 
 
     @Autowired
-    private userEntrypository userEntrypository;
+    private UserEntryrepository UserEntryrepository;
 
     public void  saveEntry(user journalentry){
-        userEntrypository.save(journalentry);
+        UserEntryrepository.save(journalentry);
 
 
     }
     public List<user> getall(){
-            return userEntrypository.findAll();     // note we have not mentioned any method yet in journalEnterrepository still it is present due to mongo section that we have included, that provide this feature.
+            return UserEntryrepository.findAll();     // note we have not mentioned any method yet in journalEnterrepository still it is present due to mongo section that we have included, that provide this feature.
 
     }
     public Optional<user> findby(ObjectId id){
-        return userEntrypository.findById(id);
+        return UserEntryrepository.findById(id);
 
     }
 
     public void deletebyid(ObjectId id){
-        userEntrypository.deleteById(id);
+        UserEntryrepository.deleteById(id);
     }
 
     public user findbyusername(String username){
-        return userEntrypository.findByUsername(username);
+        return UserEntryrepository.findByUsername(username);
     }
 
 
