@@ -25,7 +25,7 @@ public class userentrycontrollerv2 {
 
     @PostMapping
     public void createuserentry(@RequestBody user user){
-        userEntryServices.saveEntry(user);
+        userEntryServices.saveNewEntry(user);
 
     }
 

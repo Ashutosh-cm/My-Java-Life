@@ -4,8 +4,10 @@ import net.engineeringdigest.journaling.entity.user;
 import net.engineeringdigest.journaling.repository.UserEntryrepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,9 +19,18 @@ public class userEntryServices {
 
     @Autowired
     private UserEntryrepository UserEntryrepository;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
-    public void  saveEntry(user journalentry){
-        UserEntryrepository.save(journalentry);
+    public void  saveEntry(user user){
+        UserEntryrepository.save(user);
+
+
+    }
+    public void  saveNewEntry(user user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(Arrays.asList("user"));
+        UserEntryrepository.save(user);
 
 
     }
