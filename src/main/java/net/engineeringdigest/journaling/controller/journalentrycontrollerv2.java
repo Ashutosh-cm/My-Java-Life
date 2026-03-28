@@ -8,6 +8,8 @@ import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -24,8 +26,10 @@ public class journalentrycontrollerv2 {
 
 
 
-    @GetMapping("/{username}")
-    public ResponseEntity<?> getalljournalentryofuser(@PathVariable String username){
+    @GetMapping
+    public ResponseEntity<?> getalljournalentryofuser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         user user = userEntryServices.findbyusername(username);
         List<JournalEntry> all = user.getJournalEntries();
         if(all!=null&& !all.isEmpty()){
@@ -35,8 +39,10 @@ public class journalentrycontrollerv2 {
 
 
     }
-    @PostMapping("/{username}")
-    public ResponseEntity<JournalEntry> createentry(@RequestBody JournalEntry myentry, @PathVariable String username){
+    @PostMapping()
+    public ResponseEntity<JournalEntry> createentry(@RequestBody JournalEntry myentry){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         try{
             journalEntryServices.saveEntry(myentry,username);
 
@@ -57,8 +63,10 @@ public class journalentrycontrollerv2 {
 
 
     }
-    @DeleteMapping ("id/{username}/{myid}")
-    public ResponseEntity<JournalEntry> deletemyjournalentry(@PathVariable ObjectId myid, @PathVariable String username){
+    @DeleteMapping ("id/{myid}")
+    public ResponseEntity<JournalEntry> deletemyjournalentry(@PathVariable ObjectId myid){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         journalEntryServices.deletebyid(myid,username);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
