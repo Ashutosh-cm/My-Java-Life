@@ -1,6 +1,7 @@
 package net.engineeringdigest.journaling.controller;
 
 import net.engineeringdigest.journaling.entity.user;
+import net.engineeringdigest.journaling.repository.UserEntryrepository;
 import net.engineeringdigest.journaling.services.userEntryServices;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ public class userentrycontrollerv2 {
 
     @Autowired
     private userEntryServices userEntryServices;
+    @Autowired
+    private UserEntryrepository UserEntryrepository;
 
     @GetMapping
     public List<user> getallusers(){
@@ -49,10 +52,12 @@ public class userentrycontrollerv2 {
 
     }
 
-    @DeleteMapping("/{id}")
-    public boolean DeleteUser(@PathVariable ObjectId id){
-        userEntryServices.deletebyid(id);
-        return true;
+    @DeleteMapping
+    public ResponseEntity<?> DeleteUser(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        UserEntryrepository.deleteByUsername(username);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 
     }
 

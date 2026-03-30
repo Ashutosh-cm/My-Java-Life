@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/journal")
@@ -55,10 +57,20 @@ public class journalentrycontrollerv2 {
     }
     @GetMapping("id/{myid}")
     public ResponseEntity<JournalEntry> myjournalentry(@PathVariable ObjectId myid){
-        Optional<JournalEntry> journalentry = journalEntryServices.findby(myid);
-        if(journalentry.isPresent()){
-            return new ResponseEntity<>(journalentry.get(), HttpStatus.OK);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        user user = userEntryServices.findbyusername(username);
+        List<JournalEntry> collect = user.getJournalEntries().stream().filter(x -> x.getId().equals(myid)).collect(Collectors.toList());
+        // this above line we have find the user journal entries and have searcher if that id is present or not
+          // in the journal entries.
+        if(!collect.isEmpty()){
+            Optional<JournalEntry> journalentry = journalEntryServices.findby(myid);
+            if(journalentry.isPresent()){
+                return new ResponseEntity<>(journalentry.get(), HttpStatus.OK);
+            }
+
         }
+
         return new ResponseEntity<>( HttpStatus.NOT_FOUND);
 
 

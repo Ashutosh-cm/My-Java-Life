@@ -66,6 +66,9 @@ public class journalEntryServices {
         userEntryServices.saveEntry(deluser);
         JournalRepository.deleteById(id);
     }
+    public List<JournalEntry> findByUserName(String username){
+
+    }
 
 
 }
